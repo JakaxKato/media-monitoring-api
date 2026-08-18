@@ -3,7 +3,7 @@ services:
     name: media-monitoring-api
     runtime: node
     plan: free
-    buildCommand: npm ci && npm run build
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm run migrate:prod && npm start
     healthCheckPath: /health
     envVars:

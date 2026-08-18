@@ -8,8 +8,7 @@
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "types": ["node", "vitest/globals"]
+    "skipLibCheck": true
   },
   "include": ["src/**/*.ts", "tests/**/*.ts"]
 }
