@@ -222,8 +222,8 @@ The tests focus on the riskiest logic:
 
 Fill this section before submitting. Record the approximate total hours and number of working sessions honestly.
 
-- Total: `__ hours`
-- Sessions: `__`
+- Total: `3 hours`
+- Sessions: `1`
 
 ### With another week, I would…
 
