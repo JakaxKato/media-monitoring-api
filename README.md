@@ -275,3 +275,6 @@ curl -X POST https://YOUR-SERVICE.onrender.com/internal/mentions/bulk \
 ```
 
 The free service may sleep after inactivity, so the first request can be slower. Do not commit `.env` or any database credentials.
+
+  ## Deployed demo
+    https://media-monitoring-api.onrender.com/
