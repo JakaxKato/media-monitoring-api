@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: mentions
+      POSTGRES_PASSWORD: mentions
+      POSTGRES_DB: mentions
+    ports:
+      - "5432:5432"
+    volumes:
+      - mentions_pgdata:/var/lib/postgresql/data
+
+volumes:
+  mentions_pgdata:
