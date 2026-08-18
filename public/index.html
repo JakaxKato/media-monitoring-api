@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Media mention monitoring dashboard">
+    <title>Media monitoring dashboard</title>
+    <link rel="stylesheet" href="/dashboard.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to dashboard</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="Media monitoring dashboard home">
+          <span class="brand-mark" aria-hidden="true">M</span>
+          <span>Signal desk</span>
+        </a>
+        <div class="header-status" aria-label="Dashboard status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Live API view</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Media monitoring</p>
+          <h1 id="page-title">What is being said, where it is happening.</h1>
+          <p class="lede">A compact view of the latest articles and social posts flowing through the mention service.</p>
+        </div>
+        <p class="last-updated" id="last-updated">Waiting for data</p>
+      </section>
+
+      <section class="summary-grid" aria-label="Mention summary">
+        <article class="summary-panel summary-panel-primary">
+          <p class="summary-label">Tracked mentions</p>
+          <p class="summary-value" id="total-mentions">—</p>
+          <p class="summary-note">Deduplicated records in the database</p>
+        </article>
+        <article class="summary-panel">
+          <p class="summary-label">Sources</p>
+          <p class="summary-value" id="source-count">—</p>
+          <p class="summary-note">Canonical source names</p>
+        </article>
+        <article class="summary-panel">
+          <p class="summary-label">Latest publication</p>
+          <p class="summary-value summary-value-date" id="latest-publication">—</p>
+          <p class="summary-note">Most recent dated mention</p>
+        </article>
+      </section>
+
+      <section class="workspace" aria-label="Mention workspace">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Explore the feed</p>
+            <h2>Recent mentions</h2>
+          </div>
+          <p class="result-count" id="result-count" aria-live="polite">Loading mentions…</p>
+        </div>
+
+        <form class="filter-bar" id="filter-form">
+          <div class="field field-search">
+            <label for="search-query">Keyword</label>
+            <input id="search-query" name="q" type="search" autocomplete="off" placeholder="Try ringgit or floods">
+          </div>
+          <div class="field">
+            <label for="source-filter">Source</label>
+            <select id="source-filter" name="source">
+              <option value="">All sources</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="from-filter">From</label>
+            <input id="from-filter" name="from" type="date">
+          </div>
+          <div class="field">
+            <label for="to-filter">To</label>
+            <input id="to-filter" name="to" type="date">
+          </div>
+          <button class="button button-primary" type="submit">Apply filters</button>
+          <button class="button button-quiet" id="clear-filters" type="button">Clear</button>
+        </form>
+
+        <div class="table-shell">
+          <div class="table-scroll">
+            <table>
+              <caption class="sr-only">Recent media mentions</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Mention</th>
+                  <th scope="col">Source</th>
+                  <th scope="col">Published</th>
+                  <th scope="col">Engagement</th>
+                </tr>
+              </thead>
+              <tbody id="mentions-list">
+                <tr><td class="table-state" colspan="4">Loading mentions…</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination" id="pagination" aria-label="Mention pagination"></div>
+        </div>
+      </section>
+
+      <section class="insights-grid" aria-label="Mention insights">
+        <article class="insight-panel">
+          <div class="section-heading section-heading-tight">
+            <div>
+              <p class="eyebrow">Distribution</p>
+              <h2>By source</h2>
+            </div>
+          </div>
+          <div class="bars" id="source-stats" aria-live="polite"><p class="panel-state">Loading source breakdown…</p></div>
+        </article>
+        <article class="insight-panel">
+          <div class="section-heading section-heading-tight">
+            <div>
+              <p class="eyebrow">Trend</p>
+              <h2>By publication day</h2>
+            </div>
+          </div>
+          <div class="bars" id="day-stats" aria-live="polite"><p class="panel-state">Loading daily trend…</p></div>
+        </article>
+      </section>
+
+      <p class="page-error" id="page-error" role="alert" hidden></p>
+    </main>
+    <script type="module" src="/dashboard.js"></script>
+  </body>
+</html>

@@ -10,6 +10,7 @@ async function migrate() {
 
   try {
     await client.query('BEGIN');
+    await client.query("SELECT pg_advisory_xact_lock(hashtext('media-monitoring:migrations'))");
     await client.query(`
       CREATE TABLE IF NOT EXISTS schema_migrations (
         version TEXT PRIMARY KEY,
@@ -21,6 +22,7 @@ async function migrate() {
       .filter((file) => file.endsWith('.sql'))
       .sort();
 
+    let applied = 0;
     for (const file of files) {
       const version = basename(file, '.sql');
       const existing = await client.query('SELECT 1 FROM schema_migrations WHERE version = $1', [version]);
@@ -31,10 +33,11 @@ async function migrate() {
 
       await client.query(await readFile(join(migrationsDirectory, file), 'utf8'));
       await client.query('INSERT INTO schema_migrations (version) VALUES ($1)', [version]);
+      applied += 1;
     }
 
     await client.query('COMMIT');
-    console.log(`Applied migrations: ${files.length}`);
+    console.log(`Applied migrations: ${applied}`);
   } catch (error) {
     await client.query('ROLLBACK');
     throw error;

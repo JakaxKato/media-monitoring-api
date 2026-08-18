@@ -51,6 +51,9 @@ export function canonicalizeUrl(value: string | null): string | null {
 
   try {
     const url = new URL(trimmed);
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+      throw new AppError(400, 'INVALID_URL', 'URL must use http or https');
+    }
     url.hostname = url.hostname.toLocaleLowerCase();
     url.hash = '';
     if (url.pathname.length > 1) {

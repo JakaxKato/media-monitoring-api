@@ -25,6 +25,11 @@ export async function mentionRoutes(app: FastifyInstance) {
   const service = new MentionService(pool, repository);
 
   app.post('/internal/mentions/bulk', async (request, reply) => {
+    const expectedApiKey = process.env.INGEST_API_KEY;
+    if (expectedApiKey !== undefined && request.headers['x-api-key'] !== expectedApiKey) {
+      throw new AppError(401, 'UNAUTHORIZED', 'A valid ingestion API key is required');
+    }
+
     const result = await service.ingestBulk(request.body);
     return reply.status(200).send({ data: result });
   });
